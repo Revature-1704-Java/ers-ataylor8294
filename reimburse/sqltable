@@ -1,0 +1,26 @@
+create table employees(
+employeeid integer primary key not null,
+firstname varchar2(20) not null,
+lastname varchar2(20) not null,
+username varchar2(30) not null,
+passwords varchar2(20) not null,
+email varchar2(30), constraint strlen check (length(passwords) > 6));
+create table manager( managerid integer primary key not null, employeeids integer,
+constraint employeemanager foreign key (employeeids) references employees(employeeid));
+drop table reimburse;
+create table reimburse ( reimburseid integer primary key not null,
+names varchar2(40), amount integer, employeeid integer,
+approved number(1,0) default 0, managerid integer, CONSTRAINT employeereimb FOREIGN KEY (employeeid)
+    REFERENCES employees(employeeid), CONSTRAINT managerreimb FOREIGN KEY (managerid)
+    REFERENCES manager(managerid));
+
+select * from manager;
+select * from employees;
+select * from reimburse;
+insert into employees values(1,'Andrew', 'Taylor', 'ataylor8294', 'ataylor8294', 'ataylor8294@pointloma.edu');
+insert into employees values(2, 'Kevin', 'Jasminne', 'thirsty', 'password', 'kevinj@pointloma.edu');
+insert into employees values(3, 'Tim', 'Kuter', 'iamtim', 'password', 'timkuter@revature.com');
+insert into manager values(1,1);
+insert into manager values(2,2);
+insert into reimburse values(1, 'enthuware', 20, 3,0, 1);
+select * from reimburse; 
